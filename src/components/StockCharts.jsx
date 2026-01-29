@@ -1,11 +1,11 @@
 // src/components/StockChart.jsx
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 function StockChart({ data }) {
   if (!data || data.length === 0) {
     return (
       <div className="chart-container">
-        <p>No data</p>
+        <p>No Data</p>
       </div>
     );
   }
@@ -66,6 +66,7 @@ function StockChart({ data }) {
             style={{ fontSize: '12px' }}
             tickFormatter={(value) => `$${value.toFixed(0)}`}
           />
+          <Tooltip content={CustomTooltip} />
           <Area
             type="monotone"
             dataKey="close"

@@ -95,8 +95,6 @@ function App() {
               <span >${stock.previousClose?.toFixed(2)}</span>
             </div>
           </div>
-
-          <StockChart data={stock.chartData} symbol={stock.symbol} />
         </div>
 
         <div className="container bg-backgroundthird p-4 rounded-md ">
