@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getBestTechStock } from './api/daily-winner';
+import StockChart from './components/StockCharts';
 
 function App() {
   const [stock, setStock] = useState(null);
@@ -94,6 +95,8 @@ function App() {
               <span >${stock.previousClose?.toFixed(2)}</span>
             </div>
           </div>
+
+          <StockChart data={stock.chartData} symbol={stock.symbol} />
         </div>
 
         <div className="container bg-backgroundthird p-4 rounded-md ">

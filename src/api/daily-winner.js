@@ -1,4 +1,3 @@
-// src/api/finnhub.js
 const API_KEY = import.meta.env.VITE_FINNHUB_KEY;
 const BASE_URL = 'https://finnhub.io/api/v1';
 
@@ -95,11 +94,52 @@ export async function getStockNews(symbol) {
   }
 }
 
-// Find den bedste tech-aktie
+
+// Hent historiske candle data for en aktie
+export async function getStockCandles(symbol, days = 30) {
+  try {
+    const to = Math.floor(Date.now() / 1000); // Unix timestamp nu
+    const from = to - (days * 24 * 60 * 60); // X dage tilbage
+    
+    const response = await fetch(
+      `${BASE_URL}/stock/candle?symbol=${symbol}&resolution=D&from=${from}&to=${to}&token=${API_KEY}`
+    );
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    
+    if (data.s === 'no_data') {
+      return [];
+    }
+    
+    // Konverter til array af objekter
+    const chartData = data.t.map((timestamp, index) => ({
+      date: new Date(timestamp * 1000).toLocaleDateString('da-DK', { 
+        day: 'numeric', 
+        month: 'short' 
+      }),
+      timestamp: timestamp,
+      close: data.c[index],
+      open: data.o[index],
+      high: data.h[index],
+      low: data.l[index],
+      volume: data.v[index]
+    }));
+    
+    return chartData;
+    
+  } catch (error) {
+    console.error(`Error fetching candles for ${symbol}:`, error);
+    return [];
+  }
+}
+
+// Opdater getBestTechStock funktionen
 export async function getBestTechStock() {
   try {
-    // Liste over populære tech stocks at checke
-    // Du kan udvide denne liste med flere
     const techSymbols = [
       'AAPL', 'MSFT', 'GOOGL', 'META', 'NVDA', 
       'TSLA', 'AMD', 'NFLX', 'ADBE', 'CRM',
@@ -111,11 +151,9 @@ export async function getBestTechStock() {
     
     console.log('Fetching quotes for', techSymbols.length, 'tech stocks...');
     
-    // Hent quotes for alle aktier
     const quotePromises = techSymbols.map(symbol => getQuote(symbol));
     const quotes = await Promise.all(quotePromises);
     
-    // Filtrer null values og sorter efter changePercent
     const validQuotes = quotes
       .filter(q => q !== null && q.changePercent !== undefined)
       .sort((a, b) => b.changePercent - a.changePercent);
@@ -124,21 +162,22 @@ export async function getBestTechStock() {
       throw new Error('Ingen data tilgængelig');
     }
     
-    // Tag den bedste performer
     const winner = validQuotes[0];
     
     console.log('Winner:', winner.symbol, 'with', winner.changePercent, '% change');
     
-    // Hent ekstra info om vinderen
-    const [profile, news] = await Promise.all([
+    // Hent ekstra info om vinderen (inklusiv historisk data)
+    const [profile, news, chartData] = await Promise.all([
       getCompanyProfile(winner.symbol),
-      getStockNews(winner.symbol)
+      getStockNews(winner.symbol),
+      getStockCandles(winner.symbol, 30) // 30 dages historik
     ]);
     
     return {
       ...winner,
       ...profile,
-      news: news
+      news: news,
+      chartData: chartData
     };
     
   } catch (error) {
