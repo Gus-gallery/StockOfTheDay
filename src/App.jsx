@@ -76,36 +76,36 @@ function App() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 w-1/2 text-lg text-gray-300 font-medium gap-4">
+          <div className="flex flex-col w-1/2 text-lg text-gray-300 font-medium gap-4">
             <div className="">
-              <span className="stat-label">Åbning</span>
-              <span className="stat-value">${stock.open?.toFixed(2)}</span>
+              <span className="mr-1">Opening</span>
+              <span >${stock.open?.toFixed(2)}</span>
             </div>
             <div className="stat">
-              <span className="stat-label">Høj</span>
-              <span className="stat-value">${stock.high?.toFixed(2)}</span>
+              <span className="mr-1">High</span>
+              <span >${stock.high?.toFixed(2)}</span>
             </div>
             <div className="stat">
-              <span className="stat-label">Lav</span>
-              <span className="stat-value">${stock.low?.toFixed(2)}</span>
+              <span className="mr-1">Low</span>
+              <span >${stock.low?.toFixed(2)}</span>
             </div>
             <div className="stat">
-              <span className="stat-label">Forrige lukning</span>
-              <span className="stat-value">${stock.previousClose?.toFixed(2)}</span>
+              <span className="mr-1">Former close</span>
+              <span >${stock.previousClose?.toFixed(2)}</span>
             </div>
           </div>
         </div>
 
         <div className="container bg-backgroundthird p-4 rounded-md ">
           <div className="">
-            <h3 className="text-xl font-bold">Om virksomheden</h3>
-            <p className="text-md font-light">{stock.description}</p>
+            <h3 className="text-xl text-gray-100 mt-1 mb-2 font-bold">About</h3>
+            <p className="text-md text-gray-400 font-light">{stock.description}</p>
             
-            <div className="meta">
-              <span className="badge">{stock.industry}</span>
-              <span className="badge">{stock.country}</span>
+            <div className="text-md font-light text-gray-300 gap-4">
+              <span className="mr-1">{stock.industry}</span>
+              <span className="mr-1">{stock.country}</span>
               {stock.marketCap && (
-                <span className="badge">Market Cap: ${(stock.marketCap / 1000).toFixed(1)}B</span>
+                <span className="mr-1">Market Cap: ${(stock.marketCap / 1000).toFixed(1)}B</span>
               )}
             </div>
 
@@ -114,27 +114,26 @@ function App() {
                 href={stock.website} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="website-link"
+                className="underline cursor-pointer my-2 inline-block text-secondary hover:text-primary transition font-medium"
               >
-                Besøg hjemmeside →
+                Visit company website
               </a>
             )}
           </div>
 
           {stock.news && stock.news.length > 0 && (
-            <div className="news-section">
-              <h3>Seneste nyheder</h3>
+            <div className="text-gray-400 font-regular">
+              <h3 className="text-xl text-gray-100 font-bold mt-4">Latest news</h3>
               {stock.news.map((article, index) => (
                 <a 
                   key={index}
                   href={article.url} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="news-item"
+                  className=""
                 >
                   <h4>{article.headline}</h4>
-                  <p>{article.summary}</p>
-                  <span className="news-source">{article.source}</span>
+                  <p className="mb-2">{article.summary}</p>
                 </a>
               ))}
             </div>
@@ -143,11 +142,8 @@ function App() {
       </div>
 
       <footer>
-        <button onClick={fetchBestStock} className="refresh-btn">
-          🔄 Opdater data
-        </button>
-        <p className="disclaimer">
-          Data leveret af Finnhub. Investering indebærer risiko.
+        <p className="text-sm text-gray-500 text-center font-classic">
+          Data delivered by Finnhub. This is not financial advice.
         </p>
       </footer>
     </div>
