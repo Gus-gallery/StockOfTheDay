@@ -27,7 +27,7 @@ function App() {
     return (
       <div className="container loading-container">
         <div className="spinner"></div>
-        <p>Finder dagens bedste tech-aktie...</p>
+        <p>Finding Stock of the day...</p>
       </div>
     );
   }
@@ -55,7 +55,7 @@ function App() {
         })}</p>
       </header>
 
-      <div className='flex flex-row justify-center bg-backgroundsecondary rounded-lg shadow-lg p-4 mb-8'>
+      <div className='flex mt-20 flex-row justify-center bg-backgroundsecondary rounded-lg shadow-lg p-4 mb-8'>
         <div className="container flex flex-col items-left mx-auto gap-4">
           <div className="flex gap-4 items-center">
             {stock.logo && (
@@ -142,7 +142,7 @@ function App() {
       </div>
 
       <footer>
-        <p className="text-sm text-gray-500 text-center font-classic">
+        <p className="md:mt-24 text-sm text-gray-500 text-center font-classic">
           Data delivered by Finnhub. This is not financial advice.
         </p>
       </footer>
