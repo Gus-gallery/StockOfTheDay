@@ -144,7 +144,7 @@ function App() {
 
       <footer>
         <p className="md:mt-24 text-sm text-gray-500 text-center font-classic">
-          Data delivered by Finnhub. This is not financial advice.
+          Data delivered by Finnhub.
         </p>
       </footer>
     </div>
