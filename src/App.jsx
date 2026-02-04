@@ -56,7 +56,7 @@ function App() {
         })}</p>
       </header>
 
-      <div className='flex mt-20 flex-row justify-center bg-backgroundsecondary rounded-lg shadow-lg p-4 mb-8'>
+      <div className='flex mt-4 flex-row justify-center bg-backgroundsecondary rounded-lg shadow-lg p-4 mb-8'>
         <div className="container flex flex-col items-left mx-auto gap-4">
           <div className="flex gap-4 items-center">
             {stock.logo && (
@@ -133,7 +133,7 @@ function App() {
                   rel="noopener noreferrer"
                   className=""
                 >
-                  <h4>{article.headline}</h4>
+                  <h4 className="text-lg text-secondary font-semibold hover:underline">{article.headline}</h4>
                   <p className="mb-2">{article.summary}</p>
                 </a>
               ))}
