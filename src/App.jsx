@@ -56,7 +56,7 @@ function App() {
         })}</p>
       </header>
 
-      <div className='flex mt-4 flex-row justify-center bg-backgroundsecondary rounded-lg shadow-lg p-4 mb-8'>
+      <div className='flex mt-4 md:flex-row flex-col justify-center bg-backgroundsecondary rounded-lg shadow-lg p-4 mb-8'>
         <div className="container flex flex-col items-left mx-auto gap-4">
           <div className="flex gap-4 items-center">
             {stock.logo && (
@@ -77,7 +77,7 @@ function App() {
             </div>
           </div>
 
-          <div className="flex flex-col w-1/2 text-lg text-gray-300 font-medium gap-4">
+          <div className="flex mb-4 flex-col w-1/2 text-lg text-gray-300 font-medium gap-4">
             <div className="">
               <span className="mr-1">Opening</span>
               <span >${stock.open?.toFixed(2)}</span>
