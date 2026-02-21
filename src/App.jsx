@@ -68,8 +68,8 @@ function App() {
             </div>
           </div>
 
-          <div className="text-3xl text-primary font-black flex-row gap-4">
-            <div className="">${stock.price?.toFixed(2)}</div>
+          <div className="text-4xl lg:text-5xl text-primary font-classic flex-row gap-4">
+            <div className="">$ {stock.price?.toFixed(2)}</div>
             <div className={`change ${stock.changePercent >= 0 ? 'positive' : 'negative'} text-secondary`}>
               {stock.changePercent >= 0 ? '▲' : '▼'} 
               {Math.abs(stock.changePercent)?.toFixed(2)}% 
